@@ -1,4 +1,3 @@
-// script.js
 const productContainers = [...document.querySelectorAll('.product-container')];
 const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
 const preBtn = [...document.querySelectorAll('.pre-btn')];
@@ -9,12 +8,16 @@ productContainers.forEach((item, i) => {
 
     nxtBtn[i].addEventListener('click', () => {
         item.scrollLeft += containerWidth;
-    });
+    })
 
     preBtn[i].addEventListener('click', () => {
         item.scrollLeft -= containerWidth;
-    });
-});
+    })
+})
+
+
+
+
 
 function ingresar(boton_precionado) {
     // Captura del precio y la imagen
@@ -23,25 +26,27 @@ function ingresar(boton_precionado) {
     const imagen = boton_precionado.parentElement.querySelector('img').src;
 
     // Crear elementos del carrito
-    const carritoItems = document.getElementById('carrito-items');
+    const carrito = document.getElementById('carrito');
     const crearitem_carrito = document.createElement('div');
     const crearitem_precio = document.createElement('p');
     const crear_imagen = document.createElement('img');
     const cerrar_item = document.createElement('button');
 
-    crearitem_carrito.classList.add('carrito-item');
+    crearitem_carrito.classList.add('crearitem_carrito');
     cerrar_item.innerText = "X";
 
     crearitem_precio.classList.add('precio'); // Añadir clase precio
     crearitem_precio.innerText = precio;
     crear_imagen.src = imagen;
+    crear_imagen.style.width = '50px';
+    crear_imagen.style.height = '50px';
 
     // Añadir elementos al carrito
     crearitem_carrito.appendChild(crear_imagen);
     crearitem_carrito.appendChild(crearitem_precio);
     crearitem_carrito.appendChild(cerrar_item);
 
-    carritoItems.appendChild(crearitem_carrito);
+    carrito.appendChild(crearitem_carrito);
 
     // Actualizar total del carrito
     total_carrito();
@@ -56,7 +61,7 @@ function eliminar(boton_eliminar) {
 }
 
 function total_carrito() {
-    const carrito = document.getElementById('carrito-items');
+    const carrito = document.getElementById('carrito');
     const totalvruni = carrito.querySelectorAll('.precio');
     const totales_array = Array.from(totalvruni);
 
@@ -69,8 +74,9 @@ function total_carrito() {
     });
 
     const totalapagar = document.getElementById('total');
-    totalapagar.innerText = Total: $${suma.toFixed(2)};
+    totalapagar.innerText = `Total: $${suma.toFixed(2)}`;
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const carrito = document.getElementById('carrito');
@@ -80,8 +86,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Toggle visibility of the carrito
         if (carrito.style.display === 'block') {
             carrito.style.display = 'none';
+            toggleCarritoBtn.textContent = 'Mostrar Carrito';
         } else {
             carrito.style.display = 'block';
+            toggleCarritoBtn.textContent = 'Ocultar Carrito';
         }
     });
 });
